@@ -7,9 +7,8 @@ const getStudents = async (req, res) => {
         error: 'No hay estudiantes activos'
       });
     }
-
     return res.status(200).json(students)
-  })
+  });
 };
 
 const createStudent = async (req, res) => {
@@ -65,18 +64,18 @@ const updateStudent = async (req, res) => {
         }
       )
       .lean()
-      .exec()
+      .exec();
 
     if (!updatedDoc) {
-      return res.status(400).end()
+      return res.status(400).end();
     }
 
     res.status(200).json({
       data: updatedDoc
-    })
+    });
   } catch (e) {
-    console.error(e)
-    res.status(400).end()
+    console.error(e);
+    res.status(400).end();
   }
 };
 
@@ -84,87 +83,96 @@ const deleteStudent = async (req, res) => {
   try {
     const removed = await Student.findOneAndRemove({
       id: req.params.id
-    })
+    });
 
     if (!removed) {
-      return res.status(400).end()
+      return res.status(400).end();
     }
 
     return res.status(200).json({
       data: removed
-    })
+    });
   } catch (e) {
-    console.error(e)
-    res.status(400).end()
+    console.error(e);
+    res.status(400).end();
   }
 };
 
 const updateStudents = async (req, res) => {
   try {
     const updatedDoc = await Student
-      .find({
+      .updateMany({
           firstName: req.params.name
-        }
-      )
-      .update({},
+        },
         req.body, {
           new: true
-        },
-        {multy: true})
-      .lean()
-      .exec()
+        });
 
     if (!updatedDoc) {
-      return res.status(400).end()
+      return res.status(400).end();
     }
-
     res.status(200).json({
       data: updatedDoc
     })
   } catch (e) {
-    console.error(e)
-    res.status(400).end()
+    console.error(e);
+    res.status(400).end();
   }
 };
 
-const promCurse = async (req, res) => {
+const getManyStudents = async (req, res) => {
   try {
-    const updatedDoc = await Student
+    const getDoc = await Student
       .find({
-          _curse: req.params.curse
-        },
-        req.body, {
-          new: true
-        }
-      )
+        firstName: req.params.name
+      })
       .lean()
-      .exec() 
-    const number = updatedDoc.length();
-    const total = 0;
-    for (var i = 0; i <= updatedDoc.length(); i++) {
-      total = total + updatedDoc[i];
-    }
+      .exec();
 
-    const promedio = total / number;
-
-    if (!updatedDoc) {
-      return res.status(400).end()
+    if (!getDoc) {
+      return res.status(400).end();
     }
 
     res.status(200).json({
-        average : promedio
-    })
+      data: getDoc
+    });
   } catch (e) {
-    console.error(e)
-    res.status(400).end()
+    console.error(e);
+    res.status(400).end();
   }
 };
 
 
+const promCurse = async (req, res) => {
+  try {
+    const curseAvarage = await Student
+      .find({
+        curse: req.params.curse
+      })
+      .lean()
+      .exec();
 
-const prom = async (req, res) => {
+    const number = curseAvarage.length;
+    let total = 0;
+    for (var i = 0; i < curseAvarage.length; i++) {
+      total = total + curseAvarage[i].note;
+    }
+    const promedio = total / number;
 
+    if (!curseAvarage) {
+      return res.status(400).end();
+    }
+
+    res.status(200).json({
+      average: promedio
+    });
+  } catch (e) {
+    console.error(e);
+    res.status(400).end();
+  }
 };
+
+const prom = async (req, res) => {};
 
 module.exports = {
   getStudents,
@@ -173,5 +181,6 @@ module.exports = {
   updateStudent,
   createStudent,
   updateStudents,
-  promCurse
+  promCurse,
+  getManyStudents
 };
