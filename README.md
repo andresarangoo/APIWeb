@@ -16,7 +16,7 @@ Se usa la ruta http://localhost:3000/, trayendo así toda la información que se
 
 ## Para mostrar información algunos estudiantes (Get)
 
-Se usa la ruta http://localhost:3000/find/name, trayendo así toda la información que se encuentre de los estudiantes con dicho nombre, haciendo uso del metodo Get. Esto mostrara toda la info de los estudiantes con dicho name (id, firstName, lastName, curse y note) además del _id que lo crea mongo para cada dato.
+Se usa la ruta http://localhost:3000/find/firstName, trayendo así toda la información que se encuentre de los estudiantes con dicho nombre, haciendo uso del metodo Get. Esto mostrara toda la info de los estudiantes con dicho name (id, firstName, lastName, curse y note) además del _id que lo crea mongo para cada dato.
 
 ## Para eliminar
 
@@ -29,7 +29,7 @@ Se usa la ruta http://localhost:3000/id, siendo el id la identificación de estu
 
 ## Para actualizar la información de varios estudiants
 
-Se usa la ruta http://localhost:3000/update/firstName, siendo el firstName el nombre de los estudiantes que desean actualizar, haciendo uso del metodo put. También se debe enviar en el body los campos que se desean actualizar de los estudiantes. Si el se realiza de manera satisfactoria, mostrara un Json con el n[umero de datos que entro, el numero de datos que modifico, entre otras especificaciones. Si se quiere verificar puede hacerlo usando el metodo para buscar algunos estudiantes.
+Se usa la ruta http://localhost:3000/update/firstName, siendo el firstName el nombre de los estudiantes que desean actualizar, haciendo uso del metodo put. También se debe enviar en el body los campos que se desean actualizar de los estudiantes. Si el se realiza de manera satisfactoria, mostrara un Json con el numero de datos que entro, el numero de datos que modifico, entre otras especificaciones. Si se quiere verificar puede hacerlo usando el metodo para buscar algunos estudiantes. Para actualizar debe enviar un body con 
 
 ## Promedio de un curso
 
